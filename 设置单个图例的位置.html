@@ -16,6 +16,18 @@
 </head>
 <body>
     <div id="box"></div>
+    <ul>
+        <li>111</li>
+        <li>111</li>
+        <li>111</li>
+        <li>111</li>
+        <li>111</li>
+        <li>111</li>
+        <li>111</li>
+        <li>111</li>
+        <li>111</li>
+        <li>111</li>
+    </ul>
 </body>
 <script src="./echarts.min.js"></script>
 <script>
@@ -31,30 +43,23 @@ var option = {
         borderColor:'red'
     },
     tooltip: {},
-    legend: {
-        top:'50%',
-        data:[
-            {
-                name:'销量',
-                icon: 'circle',
-                top:'50%',
-                left:'0'
-            },
-            {
-                name:'销量1',
-                icon: 'circle',
-                x:'50%',
-                left:'0'
-            }
-        ]
-    },
+    legend: [
+        {
+            data:['销量2'],
+            right:'0'
+        },{
+            data:['销量1'],
+            right:'0',
+            top:'20'
+        }
+    ],
     xAxis: {
         data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
     },
     yAxis: {},
     series: [
         {
-            name: '销量',
+            name: '销量2',
             type: 'bar',
             data: [5, 20, 36, 10, 10, 20]
         },
@@ -67,9 +72,8 @@ var option = {
 };
 
 // 使用刚指定的配置项和数据显示图表。
+console.log(document.getElementsByTagName('li'))
 myChart.setOption(option);
-
-
 
 
 </script>
