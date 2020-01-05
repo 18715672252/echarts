@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,67 +11,151 @@
             width: 600px;
             height: 400px;
         }
-    
-    
     </style>
 </head>
+
 <body>
     <div id="box"></div>
 </body>
 <script src="./echarts.min.js"></script>
 <script>
-// 基于准备好的dom，初始化echarts实例
-var myChart = echarts.init(document.getElementById('box'));
-
-//指定图表的配置项和数据
-var option = {
-    title: {
-        text: 'ECharts 入门示例',
-        subtext:'1111111111111',
-        borderWidth:'5',
-        borderColor:'red'
-    },
-    tooltip: {},
-    legend: {
-        top:'50%',
-        data:[
-            {
-                name:'销量',
-                icon: 'circle',
-                top:'50%',
-                left:'0'
-            },
-            {
-                name:'销量1',
-                icon: 'circle',
-                x:'50%',
-                left:'0'
-            }
-        ]
-    },
-    xAxis: {
-        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-    },
-    yAxis: {},
-    series: [
-        {
-            name: '销量',
-            type: 'bar',
-            data: [5, 20, 36, 10, 10, 20]
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('box'));
+    //指定图表的配置项和数据
+    var myColor = ['#29aadf', '#1dffd4', '#f1d53c', '#ffad5c', '#34da62', '#00e9db', '#00c0e9', '#0096f3'];
+    var option = {
+        backgroundColor: '#0e2147',
+        grid: {
+            left: '11%',
+            top: '12%',
+            right: '0%',
+            bottom: '8%',
+            containLabel: true
         },
-        {
-            name: '销量1',
-            type: 'bar',
-            data: [10, 10, 46, 20, 5, 10]
-        }
-    ]
-};
+        dataZoom: [{
+            type: 'slider',
+            filterMode: 'none',
+            xAxisIndex: [0,1,2]
+        }],
+        xAxis: [
+            {
+                axisTick: 'none',
+                axisLine: 'none',
+                offset: '27',
+                axisLabel: {
+                    textStyle: {
+                        color: '#ffffff',
+                        fontSize: '16',
+                    }
+                },
+                data: ['8', '7', '6', '5']
+            }, {
+                axisTick: 'none',
+                axisLine: 'none',
+                offset: '27',
+                axisLabel: {
+                    textStyle: {
+                        color: '#ffffff',
+                        fontSize: '16',
+                    }
+                },
+                boundaryGap: true,
+                data: ['8', '7', '6', '5']
+            }, {
+                axisTick: 'none',
+                axisLine: 'none',
+                offset: '27',
+                axisLine: {
+                    lineStyle: {
+                        color: 'rgba(0,0,0,0)'
+                    }
+                },
+                data: ['8', '7', '6', '5'],
+            }],
+        yAxis: [{
+            show: false,
 
-// 使用刚指定的配置项和数据显示图表。
-myChart.setOption(option);
+        }],
+        series: [{
+            name: '条',
+            // type: 'bar',
+            xAxisIndex: 0,
+            data: [23, 90, 54, 76],
+            type: 'pictorialBar',
+            symbol: 'rect',
+            symbolRepeat: 'fixed',
+            symbolMargin: '20%',
+            symbolClip: true,
+            symbolSize: [20, 7],
+            label: {
+                normal: {
+                    show: true,
+                    position: 'top',
+                    formatter: function (param) {
+                        return param.value + '%';
+                    },
+                    textStyle: {
+                        normal: {
+                            color: function (params) {
+                                var num = myColor.length;
+                                return myColor[params.dataIndex]
+                            },
+                        },
+                        fontSize: '16',
+                    }
+                }
+            },
+            barWidth: 80,
+            itemStyle: {
+                normal: {
+                    color: function (params) {
+                        var num = myColor.length;
+                        return myColor[params.dataIndex % num]
+                    },
+                }
+            },
+            z: 2
+        }, {
+            name: '黑框',
+            type: 'bar',
+            xAxisIndex: 1,
+            barGap: '-100%',
+            data: [99.5, 99.5, 99.5, 99.5],
+            barWidth: 30,
+            itemStyle: {
+                normal: {
+                    color: '#021224',
+                    barBorderRadius: 45,
+                }
+            },
+            z: 1
+        }, {
+            name: '外框',
+            type: 'bar',
+            xAxisIndex: 2,
+            barGap: '-100%',
+            data: [100, 100, 100, 100],
+            barWidth: 34,
+            itemStyle: {
+                normal: {
+                    color: function (params) {
+                        var num = myColor.length;
+                        return myColor[params.dataIndex % num]
+                    },
+                    barBorderRadius: 45,
+                }
+            },
+            z: 0
+        },
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
 
 
 
 
 </script>
-</html>  
+
+</html>
